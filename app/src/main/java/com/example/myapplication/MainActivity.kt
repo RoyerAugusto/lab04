@@ -26,6 +26,9 @@ import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.theme.MyApplicationTheme
 import androidx.compose.material3.Card
 import androidx.compose.material3.Switch
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Button
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +36,14 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MyApplicationTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    floatingActionButton = {
+                        FloatingActionButton(onClick = { }) {
+                            Text("+")
+                        }
+                    }
+                ) { innerPadding ->
                     MainScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
@@ -72,6 +82,26 @@ fun MainScreen(modifier: Modifier = Modifier) {
 
         var activado by remember { mutableStateOf(false) }
         Switch(checked = activado, onCheckedChange = { activado = it })
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        var mostrarDialogo by remember { mutableStateOf(false) }
+        Button(onClick = { mostrarDialogo = true }) {
+            Text("Mostrar aviso")
+        }
+
+        if (mostrarDialogo) {
+            AlertDialog(
+                onDismissRequest = { mostrarDialogo = false },
+                confirmButton = {
+                    Button(onClick = { mostrarDialogo = false }) {
+                        Text("Aceptar")
+                    }
+                },
+                title = { Text("Aviso") },
+                text = { Text("Este es un ejemplo de AlertDialog") }
+            )
+        }
     }
 }
 
