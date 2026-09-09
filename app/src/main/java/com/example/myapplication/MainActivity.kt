@@ -24,6 +24,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.myapplication.ui.theme.MyApplicationTheme
+import androidx.compose.material3.Card
+import androidx.compose.material3.Switch
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MainScreen(modifier: Modifier = Modifier) {
-    Column(modifier = modifier.pad4ding(16.dp)) {
+    Column(modifier = modifier.padding(16.dp)) {
         Text(text = "Lab04 - MovieCounter")
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -59,6 +61,17 @@ fun MainScreen(modifier: Modifier = Modifier) {
             onValueChange = { texto = it },
             label = { Text("Nombre de la película") }
         )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Card(modifier = Modifier.padding(8.dp)) {
+            Text(text = "Esta es una tarjeta de ejemplo", modifier = Modifier.padding(16.dp))
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        var activado by remember { mutableStateOf(false) }
+        Switch(checked = activado, onCheckedChange = { activado = it })
     }
 }
 
